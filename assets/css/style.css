@@ -1,0 +1,326 @@
+/* General Styles */
+.app-print {
+  padding: 8px 12px;
+  background-color: #555;
+  border: 1px solid #333;
+  border-radius: 3px;
+  color: #f1f1f1;
+  font-family: "Roboto", arial, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.9px;
+  margin-bottom: 0;
+}
+
+body {
+  font-family: 'Heebo', 'roboto', Arial, Helvetica, sans-serif;
+  background-color: #f1f1f1;
+}
+
+body::-webkit-scrollbar-track{
+  -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius:10px;background-color:#F5F5F5
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #F5F5F5
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #616161
+}
+
+.bg-color-primary {
+  background-color: #f34c4c;
+}
+
+.color-primary {
+  color: #f34c4c;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lobster', Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 58px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 22px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+a {
+  color: #f34c4c;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #fb6464;
+}
+
+.font-heebo {
+  font-family: 'Heebo', 'roboto', Arial, Helvetica, sans-serif !important;
+}
+
+nav.app-nav {
+  background-color: #ffffff;
+}
+
+nav.app-nav .brand-logo {
+  margin-left: 30px;
+}
+
+nav.app-nav .brand-logo img,
+nav.app-nav .brand-logo span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+nav.app-nav .brand-logo img {
+  margin-top: -6px;
+  margin-right: 12px;
+  height: 48px;
+}
+
+nav.app-nav .brand-logo span {
+  font-family: 'Lobster', Arial, Helvetica, sans-serif;
+  margin-top: -6px;
+}
+
+nav.app-nav a {
+  color: #f34c4c;
+}
+
+nav.app-nav a:hover,
+nav.app-nav a:active,
+nav.app-nav a:focus {
+  color: #f34c4c;
+}
+
+nav.app-nav .shopping-cart-notification-badge {
+  position: absolute;
+  margin-top: 8px;
+  margin-left: -55px;
+  min-width: 25px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.alert-info,
+.alert-success {
+  position: fixed;
+  display: block;
+  top: 40px;
+  left: 0;
+  right: 0;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 50%;
+  z-index: 999;
+}
+
+.alert-info {
+  background-color: #fb8c00 !important;
+}
+
+.app-close-alert {
+  cursor: pointer;
+  color: #F1F1F1;
+}
+
+.app-close-alert:hover,
+.app-close-alert:active,
+.app-close-alert:focus {
+  cursor: pointer;
+  color: #F9F9F9;
+}
+
+.btn-primary {
+  background-color: #f34c4c;
+  color: white !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: #fb6464;
+}
+
+.card-action a {
+  color: #f34c4c;
+}
+
+.card-action a:hover,
+.card-action a:active,
+.card-action a:focus {
+  color: #fb6464;
+}
+
+.lbl-error {
+  color: red;
+}
+
+/* Page Styles */
+.page-index .header {
+  height: 460px;
+  background-color: #D5D5D5;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3),  rgba(125, 125, 125, 0.1)), url('../img/home-header.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.page-index .header h1 {
+  font-family: 'Lobster', Arial, Helvetica, sans-serif;
+  color: white;
+  text-align: center;
+  margin-top: 180px;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.page-index .header p {
+  text-align: center;
+  font-size: 20px;
+  color: white;
+}
+
+.page-index .plates-container .plates-container-title {
+  margin-top: 36px;
+  margin-bottom: 36px;
+}
+
+.page-index .plates-container .plate-card > .plate-image > img {
+  min-height: 260px;
+  height: 260px;
+  max-height: 260px;
+}
+
+.page-index .plates-container .plate-card span.plate-price {
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  color: #0eb525;
+}
+
+.page-index .plates-container .plate-card span.badge.plate-category {
+  background-color: #ffa42f;
+}
+
+.page-index .plates-container .plate-card .plate-name {
+  text-shadow: 2px 2px 1px rgba(0,0,0,0.6);
+}
+
+.page-index .plates-container .plate-card .plate-description {
+  min-height: 114px;
+  height: 114px;
+  max-height: 114px;
+  overflow: hidden;
+}
+
+.page-menu .plates-container .plate-card .plate-description {
+  min-height: 114px;
+  height: 114px;
+  max-height: 114px;
+  overflow: hidden;
+}
+
+.page-menu .plates-container .plate-card span.plate-price {
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  color: #0eb525;
+}
+
+.page-menu .plates-container .plate-card span.badge.plate-category {
+  background-color: #ffa42f;
+}
+
+.page-menu .plates-container .plate-card .plate-name {
+  text-shadow: 2px 2px 1px rgba(0,0,0,0.6);
+}
+
+.page-menu .plates-container .filter-form-container .title {
+  margin-top: 0;
+}
+
+.page-menu .plates-container .filter-form-container .btn-filter {
+  margin-top: 15px;
+}
+
+.page-login .login-card {
+  margin-top: 45px;
+}
+
+.page-login .login-card .link-register span {
+  display: block;
+  margin-top: 30px;
+  line-height: 160%;
+}
+
+.page-signup .signup-card {
+  margin-top: 45px;
+}
+
+.page-signup .signup-card .link-login span {
+  display: block;
+  margin-top: 30px;
+  line-height: 160%;
+}
+
+.page-shopping-cart .shopping-cart-table {
+  margin-top: 20px;
+}
+
+.page-shopping-cart .shopping-cart-table .payment-total {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.page-shopping-cart .make-order-btn-container {
+  margin-top: 20px;
+}
+
+.page-order-completed .order-completed-card {
+  margin-top: 45px;
+}
+
+.page-order-completed .order-completed-card .order-completed-icon {
+  margin-top: 15px;
+  font-size: 64px;
+}
+
+.page-order-completed .order-completed-card .order-completed-notice,
+.page-order-completed .order-completed-card .order-completed-thanks,
+.page-order-completed .order-completed-card .order-completed-back-link {
+  margin-top: 20px;
+}
+
+.page-order-completed .order-completed-card .order-completed-back-link {
+  margin-top: 25px;
+}
+
+/* Admin Page Styles */
+.page-admin-index .admin-panel .admin-card {
+  margin-bottom: 45px;
+}
