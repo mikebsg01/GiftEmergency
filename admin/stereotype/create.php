@@ -20,7 +20,7 @@ function stereotypeValidation($data) {
     if (getCounter($result) > 0) {
       ++$errors;
 
-      makeError('email', 'El nombre ingresado ya existe.');
+      makeError('name', 'El nombre ingresado ya existe.');
     }
   }
 
