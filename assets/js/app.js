@@ -12,4 +12,13 @@ $(document).ready(function() {
 
     $(this).parent().fadeOut(200);
   });
+
+  $('.app-confirm-operation').click(function (event) {
+    event.preventDefault();
+
+    if (confirm('Are you sure to delete this item?')) {
+      var $form = $(this).closest('form');
+      $form.submit();
+    }
+  });
 });

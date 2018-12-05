@@ -2,8 +2,18 @@
 
 require_once __DIR__.'/../system/core.php';
 
-function adminIndexController() {
+$stereotypes = [];
 
+function adminIndexController() {
+  global $stereotypes;
+
+  $stereotypesResult = dbQuery("SELECT slug, name FROM stereotypes");
+
+  if ($stereotypesResult->num_rows > 0) {
+    while ($row = $stereotypesResult->fetch_assoc()) {
+      $stereotypes[] = (object) $row;
+    }
+  }
 }
 
 adminIndexController();
@@ -12,6 +22,18 @@ include_once base('/templates/head.php');
 include_once base('/templates/header.php'); 
 ?>
 <div class="page-admin-index row">
+  <?php if (existsFlash('ALERT_SUCCESS')): ?>
+    <div class="card-panel green darken-1 alert-success">
+      <span class="white-text"><?php echo getFlash('ALERT_SUCCESS'); ?></span>
+      <i class="material-icons right app-close-alert">close</i>
+    </div>
+  <?php endif; ?>
+  <?php if (existsFlash('ALERT_INFO')): ?>
+    <div class="card-panel orange darken-1 alert-info">
+      <span class="white-text"><?php echo getFlash('ALERT_INFO'); ?></span>
+      <i class="material-icons right app-close-alert">close</i>
+    </div>
+  <?php endif; ?>
   <section>
     <div class="admin-panel container">
       <div class="row">
@@ -25,14 +47,32 @@ include_once base('/templates/header.php');
                 <table class="striped shopping-cart-table">
                   <thead>
                     <tr>
-                      <th class="center-align">ID #</th>
+                      <th class="left-align">ID #</th>
                       <th class="left-align">Nombre</th>
+                      <th class="center-align">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td colspan="2" class="center-align"><span>&laquo; No hay estereotipos todavía. &raquo;</span></td>
-                    </tr>
+                    <?php if (count($stereotypes) > 0): ?>
+                      <?php foreach ($stereotypes as $stereotype): ?>
+                        <tr>
+                          <td class="left-align"><?php echo $stereotype->slug; ?></td>
+                          <td class="left-align"><?php echo $stereotype->name; ?></td>
+                          <td class="center-align">
+                            <a href="stereotype/edit.php?slug=<?php echo $stereotype->slug; ?>" class="btn blue darken-1 waves-effect waves-light white-text"><i class="material-icons">edit</i></a>
+                            <form action="stereotype/delete.php" method="POST" class="inline-block">
+                              <input type="hidden" name="_method" value="DELETE">
+                              <input type="hidden" name="slug" value="<?php echo $stereotype->slug; ?>">
+                              <button type="submit" class="app-confirm-operation btn red darken-1 waves-effect waves-light"><i class="material-icons">delete</i></button>
+                            </form>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php else: ?>
+                      <tr>
+                        <td colspan="3" class="center-align"><span>&laquo; No hay estereotipos todavía. &raquo;</span></td>
+                      </tr>
+                    <?php endif; ?>
                   </tbody>
                 </table>
               </div>

@@ -10,7 +10,7 @@ function signupValidation($data) {
   # First Name Validation: 
   if (empty($data['first_name'])) {
     ++$errors;
-    makeError('first_name', 'El campo nombre(s) es requerido');
+    makeError('first_name', 'El campo nombre(s) es requerido.');
   } else if (strlen($data['first_name']) > 25) {
     ++$errors;
     makeError('first_name', 'El campo nombre(s) no debe ser mayor a 25 caracteres.');

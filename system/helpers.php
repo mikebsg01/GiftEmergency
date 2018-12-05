@@ -28,6 +28,12 @@ if (! function_exists('cucfirst')) {
   }
 }
 
+if (! function_exists('chash')) {
+  function chash(string $str) {
+    return hash('sha1', $str . time());
+  }
+}
+
 if (! function_exists('capitalize')) {
   function capitalize($str) {
     return cucfirst(cstrtolower($str));

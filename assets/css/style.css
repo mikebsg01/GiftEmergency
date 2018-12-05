@@ -182,6 +182,10 @@ nav.app-nav .shopping-cart-notification-badge {
   color: red;
 }
 
+.inline-block {
+  display: inline-block !important;
+}
+
 /* Page Styles */
 .page-index .header {
   height: 460px;
