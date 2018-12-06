@@ -380,7 +380,8 @@ nav.app-nav .shopping-cart-notification-badge {
 .page-admin-stereotype-edit .stereotype-edit-card,
 .page-admin-gift-create .gift-create-card,
 .page-admin-gift-edit .gift-edit-card,
-.page-admin-question-create .question-create-card {
+.page-admin-question-create .question-create-card,
+.page-admin-question-edit .question-edit-card {
   margin-top: 30px;
 }
 
