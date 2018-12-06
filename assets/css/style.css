@@ -40,7 +40,7 @@ body::-webkit-scrollbar-thumb {
 .color-primary {
   color: #f34c4c;
 }
-
+        
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Lobster', Arial, Helvetica, sans-serif;
   color: #333;
@@ -184,11 +184,11 @@ nav.app-nav .shopping-cart-notification-badge {
 
 /* Page Styles */
 .page-index .header {
-  height: 460px;
+  height: calc(100vh - 64px);
   background-color: #D5D5D5;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3),  rgba(125, 125, 125, 0.1)), url('../img/home-header.jpg');
-  background-position: center center;
-  background-size: cover;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3),  rgba(125, 125, 125, 0.1)), url('../img/home-img.jpg');
+  background-position:center;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -197,7 +197,6 @@ nav.app-nav .shopping-cart-notification-badge {
   font-family: 'Lobster', Arial, Helvetica, sans-serif;
   color: white;
   text-align: center;
-  margin-top: 180px;
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
 }
 
@@ -239,37 +238,9 @@ nav.app-nav .shopping-cart-notification-badge {
   overflow: hidden;
 }
 
-.page-menu .plates-container .plate-card .plate-description {
-  min-height: 114px;
-  height: 114px;
-  max-height: 114px;
-  overflow: hidden;
-}
-
-.page-menu .plates-container .plate-card span.plate-price {
-  font-size: 16px;
-  letter-spacing: 0.4px;
-  color: #0eb525;
-}
-
-.page-menu .plates-container .plate-card span.badge.plate-category {
-  background-color: #ffa42f;
-}
-
-.page-menu .plates-container .plate-card .plate-name {
-  text-shadow: 2px 2px 1px rgba(0,0,0,0.6);
-}
-
-.page-menu .plates-container .filter-form-container .title {
-  margin-top: 0;
-}
-
-.page-menu .plates-container .filter-form-container .btn-filter {
-  margin-top: 15px;
-}
-
 .page-login .login-card {
   margin-top: 45px;
+  margin-bottom: 45px;
 }
 
 .page-login .login-card .link-register span {
@@ -318,6 +289,39 @@ nav.app-nav .shopping-cart-notification-badge {
 
 .page-order-completed .order-completed-card .order-completed-back-link {
   margin-top: 25px;
+}
+
+.page-menu .plates-container .plate-card .plate-description {
+  min-height: 114px;
+  height: 114px;
+  max-height: 114px;
+  overflow: hidden;
+}
+
+.page-menu .plates-container .plate-card span.plate-price {
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  color: #0eb525;
+}
+
+.page-menu .plates-container .plate-card span.badge.plate-category {
+  background-color: #ffa42f;
+}
+
+.page-menu .plates-container .plate-card .plate-name {
+  text-shadow: 2px 2px 1px rgba(0,0,0,0.6);
+}
+
+.page-menu .plates-container .filter-form-container .title {
+  margin-top: 0;
+}
+
+.page-menu .plates-container .filter-form-container .btn-filter {
+  margin-top: 15px;
+}
+
+.page-about-us {
+  background: #f9f9f9;
 }
 
 /* Admin Page Styles */

@@ -24,52 +24,29 @@ indexController();
 include_once 'templates/head.php';
 include_once 'templates/header.php'; 
 ?>
-<div class="page-index row">
+<div class="page-index">
   <header>
-    <div class="col s12 header">
-      <h1>Una app que regala sonrisas</h1>
+    <div class="header">
+     <section class="row valign-wrapper" style="height:100%; margin-bottom:0px;">
+         <article class="col s6 center-align">
+             <h1 class="animated fadeInLeft">Una app <br> que regala sonrisas</h1>
+             <a class="btn-large red lighten-1 white-text animated fadeInLeft" href="">Encontrar regalo</a>
+         </article>
+         <article class="col s6 center-align white-text animated zoomIn">
+            <h2 class="white-text">Encuentra el regalo ideal en 3 pasos:</h2> 
+             <h3 class="white-text">
+               <ul>
+                   <li>> Contesta una breve encuesta</li>
+                   <li>> Agregar el producto a tu carrito</li>
+                   <li>> Y pide el regalo a tu domicilio</li>
+               </ul> 
+             </h3> 
+             <h2 class="white-text">Pruebalo, es GRATIS</h2>
+         </article>
+     </section>
     </div>
   </header>
-  <section>
-    <div class="container">
-      <div class="plates-container row">
-        <div class="col s12 center-align">
-          <header>
-            <h2 class="plates-container-title">Lorem Ipsum</h2>
-          </header>
-        </div>
-        <?php $i = 0; ?>
-        <?php foreach ($plates as $plate): ?>
-          <?php if ($i % 3 == 0): ?>
-            <div class="row">
-          <?php endif; ?>
-              <div class="col s4">
-                <div class="plate-card card">
-                  <div class="plate-image card-image">
-                    <img src="<?php echo getImageSource($plate->image_id); ?>" alt="Imagen de <?php echo $plate->name; ?>">
-                    <span class="plate-name card-title"><?php echo capitalize($plate->name); ?></span>
-                    <form action="add_to_shopping_cart.php" method="POST">
-                      <input type="hidden" name="add_plate" value="<?php echo $plate->slug; ?>">
-                      <button type="submit" class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add_shopping_cart</i></button>
-                    </form>
-                  </div>
-                  <div class="plate-description card-content">
-                    <p><?php echo strLimit(trim($plate->description), 80); ?></p>
-                  </div>
-                  <div class="card-action">
-                    <span class="plate-price"><?php echo toMoney($plate->price); ?></span>
-                    <span class="plate-category new badge" data-badge-caption="<?php echo getCategory($plate->category_id)->name; ?>"></span>
-                  </div>
-                </div>
-              </div>
-          <?php if ($i % 3 == 2): ?>
-            </div>
-          <?php endif; ?>
-          <?php ++$i; ?>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
+  
 </div>
 <?php include_once 'templates/scripts.php' ?>
 <script type="text/javascript" src="assets/js/app/index.js?v=<?php echo time() ?>"></script>
