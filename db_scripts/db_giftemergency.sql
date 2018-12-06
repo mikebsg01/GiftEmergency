@@ -203,10 +203,33 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- ***** INITIAL VALUES *****
 
--- Seeding "User Photo" by default:
+-- Seeding "Images" by default:
 INSERT INTO `db_giftemergency`.`images` (`id`, `file_path`, `file_name`, `file_extension`)
 		VALUES (1, '/public/users/img_profile', 'img_default', 'png'),
            (2, '/public/gifts/img', 'img_default', 'png');
+
+-- Seeding "Gift Images":
+INSERT INTO `images` 
+  VALUES (3,'/public/gifts/img','gift-fragancia-channel','jpg','2018-12-06 09:52:09','2018-12-06 09:52:09'),
+         (4,'/public/gifts/img','gift-reloj-hugo-boss','jpg','2018-12-06 09:54:59','2018-12-06 09:54:59'),
+         (5,'/public/gifts/img','gift-smartwatch','jpeg','2018-12-06 09:56:54','2018-12-06 09:56:54'),
+         (6,'/public/gifts/img','gift-sudadera','jpg','2018-12-06 09:58:06','2018-12-06 09:58:06'),
+         (7,'/public/gifts/img','gift-esferas-del-dragon','jpg','2018-12-06 09:59:06','2018-12-06 09:59:06'),
+         (8,'/public/gifts/img','gift-death-note','jpg','2018-12-06 10:00:47','2018-12-06 10:00:47'),
+         (9,'/public/gifts/img','gift-tupper','jpg','2018-12-06 10:02:29','2018-12-06 10:02:29'),
+         (10,'/public/gifts/img','gift-tacones','jpg','2018-12-06 10:04:37','2018-12-06 10:04:37'),
+         (11,'/public/gifts/img','gift-playera-metallica','jpg','2018-12-06 10:06:00','2018-12-06 10:06:00'),
+         (12,'/public/gifts/img','gift-playera-de-guns-n-rosses','jpg','2018-12-06 10:07:13','2018-12-06 10:07:13'),
+         (13,'/public/gifts/img','gift-disco-de-katty-perry','jpeg','2018-12-06 10:09:25','2018-12-06 10:09:25'),
+         (14,'/public/gifts/img','gift-nutella','jpg','2018-12-06 10:10:43','2018-12-06 10:10:43'),
+         (15,'/public/gifts/img','gift-taza-mon-laferte','jpg','2018-12-06 10:15:31','2018-12-06 10:15:31'),
+         (16,'/public/gifts/img','gift-plantita-de-cactus','jpg','2018-12-06 10:16:12','2018-12-06 10:16:12'),
+         (17,'/public/gifts/img','gift-camisa-bordada-por-yucatecos','jpg','2018-12-06 10:18:27','2018-12-06 10:18:27'),
+         (18,'/public/gifts/img','gift-muneca-maria','jpg','2018-12-06 10:19:18','2018-12-06 10:19:18'),
+         (19,'/public/gifts/img','gift-mochila-de-gimnasio','jpg','2018-12-06 10:21:29','2018-12-06 10:21:29'),
+         (20,'/public/gifts/img','gift-mochila-de-gimnasio-rosa','jpg','2018-12-06 10:22:20','2018-12-06 10:22:20'),
+         (21,'/public/gifts/img','gift-cinturon-gucci','jpg','2018-12-06 10:23:03','2018-12-06 10:23:03'),
+         (22,'/public/gifts/img','gift-gorra-de-visera-redonda','jpeg','2018-12-06 10:26:08','2018-12-06 10:26:08');
 
 -- Seeding "Admin Users":
 INSERT INTO `db_giftemergency`.`users` 
@@ -224,3 +247,26 @@ INSERT INTO `stereotypes` VALUES (1,'3f411130eb77f5e46e09fb9927742aa8240bb16c','
                                  (8,'9468a49ac9d02099c0c9e2ae2e0c4286ceff18fb','Hippie','2018-12-05 21:06:52','2018-12-05 21:06:52'),
                                  (9,'cd2a0cdd990ef151c5991060126cba1d7d60a152','Deportista','2018-12-05 21:09:28','2018-12-05 21:09:28'),
                                  (10,'b68c9a4ec5e6a923b83dab68ad50227e24256fa4','Buchón','2018-12-05 21:09:35','2018-12-05 21:09:35');
+
+-- Seeding "Gifts":
+INSERT INTO `gifts` 
+  VALUES (6,'7761de028fbd17f5220bd996881cdfc84221aa0d','Fragancia Channel',1,0,1650.00,3,'2018-12-06 09:52:08','2018-12-06 09:52:08'),
+         (7,'e8cf1cc6cbeb94fa24221f213e1e855bfb356d47','Reloj Hugo Boss',1,1,8444.91,4,'2018-12-06 09:54:58','2018-12-06 09:54:58'),
+         (8,'1b6b90a131bb080f3fbe210a8b6a5ce84e1180d7','Smartwatch',2,1,4199.00,5,'2018-12-06 09:56:54','2018-12-06 09:56:54'),
+         (9,'df8874c576281ce995946e88094350f71f906829','Sudadera',2,0,571.43,6,'2018-12-06 09:58:06','2018-12-06 09:58:06'),
+         (10,'aa2e17d0ef6b1cc08140a4316e181829a158e5e4','Esferas del dragón',3,1,945.22,7,'2018-12-06 09:59:06','2018-12-06 09:59:06'),
+         (11,'a1c264ad28e511c4cdc6e11776d3db81d3ff4566','Death Note',3,0,359.00,8,'2018-12-06 10:00:46','2018-12-06 10:00:46'),
+         (12,'c4e3303fe49efb86016e46759252bce3e812c6d1','Tupper',4,1,149.00,9,'2018-12-06 10:02:29','2018-12-06 10:02:29'),
+         (13,'d1c91321ecbd89b949ffda29c1b0ee6e963b2cac','Tacones',4,0,1499.00,10,'2018-12-06 10:04:37','2018-12-06 10:04:37'),
+         (14,'2c5f628e08f2b09709cdd87d56dbcbf9d0e53933','Playera Metallica',5,1,1056.52,11,'2018-12-06 10:06:00','2018-12-06 10:06:00'),
+         (15,'1ecf31d63a352a7dded13c7d07f5b4eae2cb8ff0','Playera de Guns N’ Rosses',5,0,1100.00,12,'2018-12-06 10:07:13','2018-12-06 10:07:13'),
+         (16,'ce9344f667190e5cd207b91361198d48490a03bb','Disco de Katty Perry',6,1,1350.00,13,'2018-12-06 10:09:25','2018-12-06 10:09:25'),
+         (17,'4986de5eef00cc0f314e9bd17fdac73547891014','Nutella',6,0,59.00,14,'2018-12-06 10:10:43','2018-12-06 10:10:43'),
+         (18,'f80a92beeda2fafdbadf7a6323af4f9a806d75cd','Taza Mon Laferte',7,1,150.00,15,'2018-12-06 10:15:31','2018-12-06 10:15:31'),
+         (19,'3f62c3b6d772b1354de563926fcaf963b6cef19c','Plantita de Cactus',7,0,228.31,16,'2018-12-06 10:16:12','2018-12-06 10:16:12'),
+         (20,'9f91fc81a0b39c000dee9077862e6c07756cbe56','Camisa bordada por yucatecos',8,1,479.00,17,'2018-12-06 10:18:27','2018-12-06 10:18:27'),
+         (21,'5e82015e22d56752ce694c4fd47e2828035d6825','Muñeca María',8,0,150.00,18,'2018-12-06 10:19:18','2018-12-06 10:19:18'),
+         (22,'7fccc321ec368576537babf8e0de25e3967347e7','Mochila de gimnasio',9,1,1500.00,19,'2018-12-06 10:21:29','2018-12-06 10:21:29'),
+         (23,'ed02f342a979458c645b85e32c222c0c48e2c8c5','Mochila de gimnasio rosa',9,0,1299.00,20,'2018-12-06 10:22:20','2018-12-06 10:22:20'),
+         (24,'bfa757e66ed441d0caa5fb5fd9bd709f31f7c2be','Cinturon Gucci',10,1,550.00,21,'2018-12-06 10:23:03','2018-12-06 10:23:03'),
+         (25,'5cdf379f474badb80a0c56485e61a9df880a3e6b','Gorra de Visera Redonda',10,0,695.00,22,'2018-12-06 10:26:08','2018-12-06 10:26:08');
