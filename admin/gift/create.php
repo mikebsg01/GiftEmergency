@@ -108,8 +108,8 @@ function adminCreateGiftController() {
       if ($gift_saved) {
 
         if (! empty($_FILES['gift_image']) and ! empty($_FILES['gift_image']['name'])) {
-          $gift_name = $_FILES['gift_image'];
-          $file_info = pathinfo($gift_name['name']);
+          $gift_image = $_FILES['gift_image'];
+          $file_info = pathinfo($gift_image['name']);
           $file_extension = $file_info['extension'];
 
           if (preg_match('/(gif|png|jpg|jpeg)/', $file_extension)) {
@@ -117,7 +117,7 @@ function adminCreateGiftController() {
             $file_name    = "gift-{$slug}";
             $file_path    = "/public/gifts/img";
             $destination  = situate("{$file_path}/{$file_name}.{$file_extension}");
-            move_uploaded_file($gift_name['tmp_name'], $destination);
+            move_uploaded_file($gift_image['tmp_name'], $destination);
 
             $image_id = dbQuery("INSERT INTO `images` (`file_path`, `file_name`, `file_extension`)
                                  VALUES ('{$file_path}', '{$file_name}', '{$file_extension}')", true);

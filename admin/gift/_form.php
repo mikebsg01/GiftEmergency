@@ -55,7 +55,7 @@
     </div>
     <div class="col s6">
       <div class="center-align bottom-margin-20px">
-        <img id="gift-image" class="gift-image circle responsive-img" src="<?php echo (! is_null($old_gift_data) ? url($old_gift_data['image_url']) : url('public/gifts/img/img_default.png')); ?>">
+        <img id="gift-image" class="gift-image circle responsive-img" src="<?php echo ((! is_null($old_gift_data) and ! empty($old_gift_data['image_url'])) ? url($old_gift_data['image_url']) : url('public/gifts/img/img_default.png')); ?>">
       </div>
       <div class="file-field input-field col s12">
         <div class="btn btn-primary">
