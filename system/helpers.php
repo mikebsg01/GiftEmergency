@@ -118,7 +118,7 @@ if (! function_exists('dbConnection')) {
 
 if (! function_exists('dbQuery')) {
   function dbQuery(string $query, bool $getLastId = false) {
-    App::print($query);
+    # App::print($query);
     $conn   = dbConnection();
     $result = $conn->query($query . ';');
 
@@ -467,5 +467,45 @@ if (! function_exists('getAllCategories')) {
     }
 
     return $categories;
+  }
+}
+
+if (! function_exists('getAnswersByQuestionId')) {
+  function getAnswersByQuestionId($question_id) {
+    $answers = [];
+    $answersResult = dbQuery("SELECT a.id, a.slug, a.content 
+                              FROM questions AS q
+                              INNER JOIN answers AS a 
+                                ON q.id = a.question_id
+                              WHERE q.id = {$question_id}
+                              ORDER BY a.id ASC, a.created_at ASC");
+
+    if ($answersResult->num_rows > 0) {
+      while ($row = $answersResult->fetch_assoc()) {
+        $answers[] = (object) $row;
+      }
+    }
+
+    return $answers;
+  }
+}
+
+if (! function_exists('getStereotypesByAnswerId')) {
+  function getStereotypesByAnswerId($answer_id) {
+    $stereotypes = [];
+    $stereotypesResult = dbQuery("SELECT s.slug, s.name 
+                                  FROM answers AS a 
+                                  INNER JOIN answers_stereotypes AS a_s ON a.id = a_s.answer_id 
+                                  INNER JOIN stereotypes AS s ON a_s.stereotype_id = s.id
+                                  WHERE a.id = {$answer_id}
+                                  ORDER BY s.id ASC, s.created_at ASC");
+
+    if ($stereotypesResult->num_rows > 0) {
+      while ($row = $stereotypesResult->fetch_assoc()) {
+        $stereotypes[] = (object) $row;
+      }
+    }
+
+    return $stereotypes;
   }
 }

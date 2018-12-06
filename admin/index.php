@@ -33,7 +33,7 @@ function adminIndexController() {
     }
   }
 
-  $questionsResult = dbQuery("SELECT q.slug, q.label FROM questions AS q");
+  $questionsResult = dbQuery("SELECT q.id, q.slug, q.label FROM questions AS q");
 
   if ($questionsResult->num_rows > 0) {
     while ($row = $questionsResult->fetch_assoc()) {
@@ -164,7 +164,7 @@ include_once base('/templates/header.php');
                   <thead>
                     <tr>
                       <th class="left-align">ID #</th>
-                      <th class="left-align">Pregunta</th>
+                      <th colspan="3" class="left-align">Pregunta</th>
                       <th class="right-align">Opciones</th>
                     </tr>
                   </thead>
@@ -173,7 +173,7 @@ include_once base('/templates/header.php');
                       <?php foreach ($questions as $question): ?>
                         <tr>
                           <td class="left-align"><?php echo strLimit($question->slug, 7); ?></td>
-                          <td class="left-align"><?php echo $question->label; ?></td>
+                          <td colspan="3" class="left-align"><?php echo $question->label; ?></td>
                           <td class="right-align">
                             <a href="question/edit.php?slug=<?php echo $question->slug; ?>" class="btn blue darken-1 waves-effect waves-light white-text"><i class="material-icons">edit</i></a>
                             <form action="question/delete.php" method="POST" class="inline-block">
@@ -183,15 +183,55 @@ include_once base('/templates/header.php');
                             </form>
                           </td>
                         </tr>
+                        <?php
+                          $answers = getAnswersByQuestionId($question->id);
+                        ?>
+                        <?php if (count($answers) > 0): ?>
+                          <tr>
+                            <th>&nbsp;</th>
+                            <th colspan="4" class="center-align">RESPUESTAS</th>
+                          </tr>
+                          <tr>
+                            <th>&nbsp;</th>
+                            <th class="left-align">ID #</th>
+                            <th class="left-align">Respuesta</th>
+                            <th class="left-align">Estereotipos</th>
+                            <th class="right-align">Opciones</th>
+                          </tr>
+                        <?php endif; ?>
+                        <?php foreach ($answers as $answer): ?>
+                          <?php
+                            $stereotypes = getStereotypesByAnswerId($answer->id);
+                            
+                            $stereotype_names = array_map(function($element) {
+                              return $element->name;
+                            }, $stereotypes);
+                          ?>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td class="left-align"><?php echo $answer->slug; ?></td>
+                            <td class="left-align"><?php echo $answer->content; ?></td>
+                            <td class="left-align">
+                              <?php if (count($stereotype_names) > 0): ?>
+                              <ul>
+                                <?php foreach($stereotype_names as $stereotype_name): ?>
+                                  <li style="list-style: initial;"><?php echo $stereotype_name; ?></li>  
+                                <?php endforeach; ?>
+                              </ul>
+                              <?php endif; ?>
+                            </td>
+                            <td class="right-align">&nbsp;</td>
+                          </tr>
+                        <?php endforeach; ?>
                         <tr>
-                          <td colspan="3" class="center-align">
+                          <td colspan="5" class="center-align">
                             <a href="<?php echo url("/admin/answer/create.php?question_slug={$question->slug}"); ?>" class="btn halfway-fab waves-effect waves-light red white-text"><i class="material-icons left">add</i> Respuesta</a>
                           </td>
                         </tr>
                       <?php endforeach; ?>
                     <?php else: ?>
                       <tr>
-                        <td colspan="3" class="center-align"><span>&laquo; No hay preguntas todavía. &raquo;</span></td>
+                        <td colspan="5" class="center-align"><span>&laquo; No hay preguntas todavía. &raquo;</span></td>
                       </tr>
                     <?php endif; ?>
                   </tbody>

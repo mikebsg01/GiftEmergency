@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `db_giftemergency`.`answers_stereotypes` (
   INDEX `fk_answers_has_stereotypes_answers1_idx` (`answer_id` ASC),
   CONSTRAINT `fk_answers_has_stereotypes_answers1`
     FOREIGN KEY (`answer_id`)
-    REFERENCES `db_giftemergency`.`answers` (`question_id`)
+    REFERENCES `db_giftemergency`.`answers` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_answers_has_stereotypes_stereotypes1`

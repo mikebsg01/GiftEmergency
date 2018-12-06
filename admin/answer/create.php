@@ -102,12 +102,11 @@ function adminCreateAnswerController() {
 
             $stereotype_attached = dbQuery("INSERT INTO answers_stereotypes (answer_id, stereotype_id)
                                             VALUES ({$answer_id}, {$stereotype->id})");
-            App::print($answer_id, $stereotype->id, $stereotype_attached);
           }
         }
 
-        #makeFlash('ALERT_SUCCESS', 'La pregunta se ha creado exitosamente!');
-        #header('Location: ../index.php');
+        makeFlash('ALERT_SUCCESS', 'La pregunta se ha creado exitosamente!');
+        header('Location: ../index.php');
         return;
       } else {
         makeFlash('ALERT_INFO', 'Lo sentimos, ocurrió un problema en el servidor. Por favor intentelo más tarde.');
