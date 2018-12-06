@@ -183,6 +183,11 @@ include_once base('/templates/header.php');
                             </form>
                           </td>
                         </tr>
+                        <tr>
+                          <td colspan="3" class="center-align">
+                            <a href="<?php echo url('/admin/answer/create.php'); ?>" class="btn halfway-fab waves-effect waves-light red white-text"><i class="material-icons left">add</i> Respuesta</a>
+                          </td>
+                        </tr>
                       <?php endforeach; ?>
                     <?php else: ?>
                       <tr>
