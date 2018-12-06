@@ -102,7 +102,7 @@ function adminCreateGiftController() {
         $gift_data['stereotype_id'] = (int) $stereotype['id'];
 
         $gift_saved = dbQuery("INSERT INTO `gifts` (`slug`, `name`, `stereotype_id`, `gender`, `price`, `image_id`) 
-                              VALUES ('{$gift_data['slug']}', '{$gift_data['name']}', {$gift_data['stereotype_id']}, {$gift_data['gender']}, '{$gift_data['price']}', 1)");
+                              VALUES ('{$gift_data['slug']}', '{$gift_data['name']}', {$gift_data['stereotype_id']}, {$gift_data['gender']}, '{$gift_data['price']}', 2)");
       } catch (Exception $e) {}
 
       if ($gift_saved) {

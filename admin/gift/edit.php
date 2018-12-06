@@ -147,14 +147,18 @@ function adminEditGiftController() {
           $file_extension = $file_info['extension'];
 
           if (preg_match('/(gif|png|jpg|jpeg)/', $file_extension)) {
-            unlink(base($current_gift['image_url']));
+
+            if ($current_gift['image_id'] > 2) {
+              unlink(base($current_gift['image_url']));
+            }
+
             $slug         = slugify($gift_data['name']);
             $file_name    = "gift-{$slug}";
             $file_path    = "/public/gifts/img";
             $destination  = situate("{$file_path}/{$file_name}.{$file_extension}");
             move_uploaded_file($gift_name['tmp_name'], $destination);
 
-            if ($current_gift['image_id'] != 1) {
+            if ($current_gift['image_id'] > 2) {
               $image_updated = dbQuery("UPDATE `images` 
                                         SET `file_path` = '{$file_path}',
                                             `file_name` = '{$file_name}',

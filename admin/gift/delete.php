@@ -20,7 +20,7 @@ if (!empty($_POST['_method']) and $_POST['_method'] == 'DELETE' and
       makeFlash('ALERT_INFO', 'El regalo ha sido eliminado exitosamente.');
     }
 
-    if ($gift->image_id != 1) {
+    if ($gift->image_id > 2) {
       $getImage = dbQuery("SELECT CONCAT(img.file_path, '/', img.file_name, '.', img.file_extension) AS 'url'
                           FROM images AS img
                           WHERE img.id = {$gift->image_id}");
