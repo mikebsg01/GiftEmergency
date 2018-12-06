@@ -17,7 +17,7 @@
     <?php foreach ($stereotypes as $stereotype): ?>
       <p class="bottom-margin-10px">
         <label>
-          <input <?php echo ((! is_null($old_answer_data) and in_array($stereotype->slug, $old_answer_data['stereotypes'])) ? 'checked="checked"' : ''); ?> type="checkbox" name="answer[stereotypes][]" value="<?php echo $stereotype->slug ?>" />
+          <input type="checkbox" name="answer[stereotypes][]" value="<?php echo $stereotype->slug ?>" <?php echo ((! is_null($old_answer_data) and in_array($stereotype->slug, $old_answer_data['stereotypes'])) ? 'checked="checked"' : ''); ?>/>
           <span><?php echo $stereotype->name ?></span>
         </label>
       </p>

@@ -118,6 +118,7 @@ if (! function_exists('dbConnection')) {
 
 if (! function_exists('dbQuery')) {
   function dbQuery(string $query, bool $getLastId = false) {
+    App::print($query);
     $conn   = dbConnection();
     $result = $conn->query($query . ';');
 

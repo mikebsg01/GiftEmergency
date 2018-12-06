@@ -26,8 +26,23 @@ function answerValidation($data) {
     }
   }
 
-  App::print($data['stereotypes'], $errors);
-  return;
+  foreach ($data['stereotypes'] as $stereotype_slug) {
+    # Stereotype Validation
+
+    if (empty($stereotype_slug)) {
+      ++$errors;
+      makeError('stereotypes', 'Los estereotipos ingresados son inválidos.');
+      break;
+    } else {
+      $result = dbQuery("SELECT count(*) as `counter` FROM `stereotypes` WHERE `stereotypes`.`slug` = '{$stereotype_slug}'");
+
+      if (getCounter($result) != 1) {
+        ++$errors;
+        makeError('stereotypes', 'Los estereotipos ingresados son inválidos.');
+        break;
+      }
+    }
+  }
 
   return ! $errors;
 }
@@ -41,14 +56,17 @@ function adminCreateAnswerController() {
   }
 
   $question_slug = $_GET['question_slug'];
-  $questionResult = dbQuery("SELECT count(*) as `counter` FROM `questions` WHERE `questions`.`slug` = '{$question_slug}'
+  $questionResult = dbQuery("SELECT id FROM `questions` 
+                             WHERE `questions`.`slug` = '{$question_slug}'
                              ORDER BY `questions`.`id` ASC, `questions`.`created_at` ASC
                              LIMIT 1");
 
-  if (getCounter($questionResult) == 0) {
+  if ($questionResult->num_rows == 0) {
     header('Location: ../index.php');
     return;
   }
+
+  $question = (object) $questionResult->fetch_assoc();
 
   $stereotypesResult = dbQuery("SELECT slug, name FROM stereotypes");
 
@@ -69,12 +87,27 @@ function adminCreateAnswerController() {
     if (answerValidation($answer_data)) {
       $answer_data['slug'] = chash($answer_data['content']);
 
-      $answer_saved = dbQuery("INSERT INTO `answers` (`slug`, `label`) 
-                                   VALUES ('{$answer_data['slug']}', '{$answer_data['content']}')");
+      $answer_id = dbQuery("INSERT INTO `answers` (`question_id`, `slug`, `content`) 
+                            VALUES ({$question->id}, '{$answer_data['slug']}', '{$answer_data['content']}')", true);
 
-      if ($answer_saved) {
-        makeFlash('ALERT_SUCCESS', 'La pregunta se ha creado exitosamente!');
-        header('Location: ../index.php');
+      if (is_int($answer_id) and $answer_id >= 1) {
+        foreach ($answer_data['stereotypes'] as $stereotype_slug) {
+          $getStereotype = dbQuery("SELECT `id` FROM `stereotypes` 
+                                    WHERE `stereotypes`.`slug` = '{$stereotype_slug}'
+                                    ORDER BY `stereotypes`.`id` ASC, `stereotypes`.`created_at` ASC
+                                    LIMIT 1");
+
+          if ($getStereotype->num_rows > 0) {
+            $stereotype = (object) $getStereotype->fetch_assoc();
+
+            $stereotype_attached = dbQuery("INSERT INTO answers_stereotypes (answer_id, stereotype_id)
+                                            VALUES ({$answer_id}, {$stereotype->id})");
+            App::print($answer_id, $stereotype->id, $stereotype_attached);
+          }
+        }
+
+        #makeFlash('ALERT_SUCCESS', 'La pregunta se ha creado exitosamente!');
+        #header('Location: ../index.php');
         return;
       } else {
         makeFlash('ALERT_INFO', 'Lo sentimos, ocurrió un problema en el servidor. Por favor intentelo más tarde.');
