@@ -3,15 +3,32 @@
 require_once __DIR__.'/../system/core.php';
 
 $stereotypes = [];
+$gifts = [];
 
 function adminIndexController() {
-  global $stereotypes;
+  global $stereotypes, $gifts;
 
   $stereotypesResult = dbQuery("SELECT slug, name FROM stereotypes");
 
   if ($stereotypesResult->num_rows > 0) {
     while ($row = $stereotypesResult->fetch_assoc()) {
       $stereotypes[] = (object) $row;
+    }
+  }
+
+  $giftsResult = dbQuery("SELECT g.slug, 
+                                 CONCAT(img.file_path, '/', img.file_name, '.', img.file_extension) AS 'image_url', 
+                                 g.name, 
+                                 s.name AS 'stereotype',
+                                 g.gender, 
+                                 g.price 
+                          FROM gifts AS g
+                          INNER JOIN stereotypes AS s ON g.stereotype_id = s.id
+                          INNER JOIN images AS img ON g.image_id = img.id");
+
+  if ($giftsResult->num_rows > 0) {
+    while ($row = $giftsResult->fetch_assoc()) {
+      $gifts[] = (object) $row;
     }
   }
 }
@@ -44,21 +61,21 @@ include_once base('/templates/header.php');
             <a href="<?php echo url('/admin/stereotype/create.php'); ?>" class="btn-large btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="row">
               <div class="col s12">
-                <table class="striped shopping-cart-table">
+                <table class="striped responsive-table shopping-cart-table">
                   <thead>
                     <tr>
                       <th class="left-align">ID #</th>
                       <th class="left-align">Nombre</th>
-                      <th class="center-align">Opciones</th>
+                      <th class="right-align">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php if (count($stereotypes) > 0): ?>
                       <?php foreach ($stereotypes as $stereotype): ?>
                         <tr>
-                          <td class="left-align"><?php echo $stereotype->slug; ?></td>
+                          <td class="left-align"><?php echo strLimit($stereotype->slug, 7); ?></td>
                           <td class="left-align"><?php echo $stereotype->name; ?></td>
-                          <td class="center-align">
+                          <td class="right-align">
                             <a href="stereotype/edit.php?slug=<?php echo $stereotype->slug; ?>" class="btn blue darken-1 waves-effect waves-light white-text"><i class="material-icons">edit</i></a>
                             <form action="stereotype/delete.php" method="POST" class="inline-block">
                               <input type="hidden" name="_method" value="DELETE">
@@ -82,24 +99,46 @@ include_once base('/templates/header.php');
         <div class="admin-card card">
           <div class="card-content">
             <span class="card-title">Regalos</span>
-            <a class="btn-large btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <a href="<?php echo url('/admin/gift/create.php'); ?>" class="btn-large btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="row">
               <div class="col s12">
-                <table class="striped shopping-cart-table">
+                <table class="striped responsive-table shopping-cart-table">
                   <thead>
                     <tr>
-                      <th class="center-align">ID #</th>
+                      <th class="left-align">ID #</th>
                       <th class="center-align">Imagen</th>
                       <th class="left-align">Nombre</th>
                       <th class="left-align">Estereotipo</th>
                       <th class="left-align">Género</th>
-                      <th class="right-align">Precio</th>
+                      <th class="center-align">Precio</th>
+                      <th class="right-align">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td colspan="6" class="center-align"><span>&laquo; No hay regalos todavía. &raquo;</span></td>
-                    </tr>
+                    <?php if (count($gifts) > 0): ?>
+                      <?php foreach ($gifts as $gift): ?>
+                        <tr>
+                            <td class="left-align"><?php echo strLimit($gift->slug, 7) ?></td>
+                            <td class="center-align"><img class="gift-icon circle responsive-img" src="<?php echo url($gift->image_url); ?>"></td>
+                            <td class="left-align"><?php echo $gift->name ?></td>
+                            <td class="left-align"><?php echo $gift->stereotype ?></td>
+                            <td class="left-align"><?php echo (($gift->gender) ? 'Hombre' : 'Mujer') ?></td>
+                            <td class="right-align"><?php echo toMoney($gift->price) ?></td>
+                            <td class="right-align">
+                              <a href="gift/edit.php?slug=<?php echo $gift->slug; ?>" class="btn blue darken-1 waves-effect waves-light white-text"><i class="material-icons">edit</i></a>
+                              <form action="gift/delete.php" method="POST" class="inline-block">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="slug" value="<?php echo $gift->slug; ?>">
+                                <button type="submit" class="app-confirm-operation btn red darken-1 waves-effect waves-light"><i class="material-icons">delete</i></button>
+                              </form>
+                            </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php else: ?>
+                      <tr>
+                        <td colspan="7" class="center-align"><span>&laquo; No hay regalos todavía. &raquo;</span></td>
+                      </tr>
+                    <?php endif; ?>
                   </tbody>
                 </table>
               </div>

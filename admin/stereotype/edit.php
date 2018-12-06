@@ -84,7 +84,7 @@ include_once base('/templates/header.php');
     <div class="container">
       <div class="row">
         <div class="col s6 offset-s3">
-          <div class="stereotype-create-card card">
+          <div class="stereotype-edit-card card">
             <div class="card-content">
               <div class="row">
                 <div class="col s12">

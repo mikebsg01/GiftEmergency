@@ -18,7 +18,7 @@ if (!empty($_POST['_method']) and $_POST['_method'] == 'DELETE' and
     $erased = dbQuery("DELETE FROM `stereotypes` WHERE `stereotypes`.`id` = '$id'");
     
     if ($erased) {
-      makeFlash('ALERT_INFO', 'El alumno ha sido eliminado exitosamente.');
+      makeFlash('ALERT_INFO', 'El estereotipo ha sido eliminado exitosamente.');
     }
   }
 }

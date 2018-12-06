@@ -41,6 +41,38 @@ body::-webkit-scrollbar-thumb {
   color: #f34c4c;
 }
 
+.top-margin-10px {
+  margin-top: 10px !important;
+}
+
+.top-margin-15px {
+  margin-top: 15px !important;
+}
+
+.top-margin-20px {
+  margin-top: 20px !important;
+}
+
+.top-margin-30px {
+  margin-top: 30px !important;
+}
+
+.bottom-margin-10px {
+  margin-bottom: 10px !important;
+}
+
+.bottom-margin-15px {
+  margin-bottom: 15px !important;
+}
+
+.bottom-margin-20px {
+  margin-bottom: 20px !important;
+}
+
+.bottom-margin-30px {
+  margin-bottom: 30px !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Lobster', Arial, Helvetica, sans-serif;
   color: #333;
@@ -107,6 +139,11 @@ nav.app-nav .brand-logo img {
 nav.app-nav .brand-logo span {
   font-family: 'Lobster', Arial, Helvetica, sans-serif;
   margin-top: -6px;
+}
+
+nav.app-nav .brand-logo span.admin-badge {
+  margin-top: 8px;
+  margin-left: 5px;
 }
 
 nav.app-nav a {
@@ -329,6 +366,25 @@ nav.app-nav .shopping-cart-notification-badge {
   margin-bottom: 45px;
 }
 
+.page-admin-index .admin-panel .gift-icon {
+  min-width: 64px !important;
+  width: 64px !important;
+  height: 64px !important;
+}
+
+.page-admin-stereotype-create .stereotype-create-card,
+.page-admin-stereotype-edit .stereotype-edit-card,
+.page-admin-gift-create .gift-create-card,
+.page-admin-gift-edit .gift-edit-card {
+  margin-top: 30px;
+}
+
 .page-admin-stereotype-create .stereotype-create-card {
   margin-top: 45px;
+}
+
+.page-admin-gift-create .gift-create-card .gift-image,
+.page-admin-gift-edit .gift-edit-card .gift-image {
+  width: 200px;
+  height: 200px;
 }
