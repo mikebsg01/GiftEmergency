@@ -185,7 +185,7 @@ include_once base('/templates/header.php');
                         </tr>
                         <tr>
                           <td colspan="3" class="center-align">
-                            <a href="<?php echo url('/admin/answer/create.php'); ?>" class="btn halfway-fab waves-effect waves-light red white-text"><i class="material-icons left">add</i> Respuesta</a>
+                            <a href="<?php echo url("/admin/answer/create.php?question_slug={$question->slug}"); ?>" class="btn halfway-fab waves-effect waves-light red white-text"><i class="material-icons left">add</i> Respuesta</a>
                           </td>
                         </tr>
                       <?php endforeach; ?>

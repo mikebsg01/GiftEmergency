@@ -2,48 +2,48 @@
 
 require_once __DIR__.'/../../system/core.php';
 
-$old_question_data = null;
+$old_answer_data = null;
 
-function questionValidation($data) {
+function answerValidation($data) {
   $errors = 0;
 
   # Label validation:
-  if (empty($data['label'])) {
+  if (empty($data['content'])) {
     ++$errors;
-    makeError('label', 'El campo pregunta es requerido.');
-  } else if (strlen($data['label']) > 240) {
+    makeError('content', 'El campo pregunta es requerido.');
+  } else if (strlen($data['content']) > 240) {
     ++$errors;
-    makeError('label', 'La pregunta no debe ser mayor a 240 caracteres.');
+    makeError('content', 'La pregunta no debe ser mayor a 240 caracteres.');
   } else {
-    $result = dbQuery("SELECT count(*) as `counter` FROM `questions` WHERE `questions`.`label` = '{$data['label']}'");
+    $result = dbQuery("SELECT count(*) as `counter` FROM `answers` WHERE `answers`.`label` = '{$data['content']}'");
 
     if (getCounter($result) > 0) {
       ++$errors;
 
-      makeError('label', 'La pregunta ingresada ya existe.');
+      makeError('content', 'La pregunta ingresada ya existe.');
     }
   }
 
   return ! $errors;
 }
 
-function adminCreateQuestionController() {
-  global $old_question_data;
+function adminCreateAnswerController() {
+  global $old_answer_data;
 
-  if (!empty($_POST['question'])) {
-    $question_data = filterData($_POST['question'], [
-      'label'
+  if (!empty($_POST['answer'])) {
+    $answer_data = filterData($_POST['answer'], [
+      'content'
     ]);
 
-    $old_question_data = $question_data;
+    $old_answer_data = $answer_data;
 
-    if (questionValidation($question_data)) {
-      $question_data['slug'] = chash($question_data['label']);
+    if (answerValidation($answer_data)) {
+      $answer_data['slug'] = chash($answer_data['content']);
 
-      $question_saved = dbQuery("INSERT INTO `questions` (`slug`, `label`) 
-                                   VALUES ('{$question_data['slug']}', '{$question_data['label']}')");
+      $answer_saved = dbQuery("INSERT INTO `answers` (`slug`, `label`) 
+                                   VALUES ('{$answer_data['slug']}', '{$answer_data['content']}')");
 
-      if ($question_saved) {
+      if ($answer_saved) {
         makeFlash('ALERT_SUCCESS', 'La pregunta se ha creado exitosamente!');
         header('Location: ../index.php');
         return;
@@ -54,12 +54,12 @@ function adminCreateQuestionController() {
   }
 }
 
-adminCreateQuestionController();
+adminCreateAnswerController();
 
 include_once base('/templates/head.php');
 include_once base('/templates/header.php'); 
 ?>
-<div class="page-admin-question-create row">
+<div class="page-admin-answer-create row">
   <?php if (existsFlash('ALERT_INFO')): ?>
     <div class="card-panel orange darken-1 alert-info">
       <span class="white-text"><?php echo getFlash('ALERT_INFO'); ?></span>
@@ -70,11 +70,11 @@ include_once base('/templates/header.php');
     <div class="container">
       <div class="row">
         <div class="col s8 offset-s2">
-          <div class="question-create-card card">
+          <div class="answer-create-card card">
             <div class="card-content">
               <div class="row">
                 <div class="col s12">
-                  <span class="card-title">Crear Pregunta</span>
+                  <span class="card-title">Crear Respuesta</span>
                 </div>
                 <div class="col s12">
                   <?php include '_form.php'; ?>

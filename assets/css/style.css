@@ -381,7 +381,8 @@ nav.app-nav .shopping-cart-notification-badge {
 .page-admin-gift-create .gift-create-card,
 .page-admin-gift-edit .gift-edit-card,
 .page-admin-question-create .question-create-card,
-.page-admin-question-edit .question-edit-card {
+.page-admin-question-edit .question-edit-card,
+.page-admin-answer-create .answer-create-card {
   margin-top: 30px;
 }
 
