@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/../../system/core.php';
 
+$question_slug = null;
 $old_answer_data = null;
 
 function answerValidation($data) {
@@ -28,7 +29,22 @@ function answerValidation($data) {
 }
 
 function adminCreateAnswerController() {
-  global $old_answer_data;
+  global $old_answer_data, $question_slug;
+
+  if (empty($_GET['question_slug'])) {
+    header('Location: ../index.php');
+    return;
+  }
+
+  $question_slug = $_GET['question_slug'];
+  $questionResult = dbQuery("SELECT count(*) as `counter` FROM `questions` WHERE `questions`.`slug` = '{$question_slug}'
+                             ORDER BY `questions`.`id` ASC, `questions`.`created_at` ASC
+                             LIMIT 1");
+
+  if (getCounter($questionResult) == 0) {
+    header('Location: ../index.php');
+    return;
+  }
 
   if (!empty($_POST['answer'])) {
     $answer_data = filterData($_POST['answer'], [
