@@ -209,7 +209,7 @@ include_once base('/templates/header.php');
                           ?>
                           <tr>
                             <td>&nbsp;</td>
-                            <td class="left-align"><?php echo $answer->slug; ?></td>
+                            <td class="left-align"><?php echo strLimit($answer->slug, 7); ?></td>
                             <td class="left-align"><?php echo $answer->content; ?></td>
                             <td class="left-align">
                               <?php if (count($stereotype_names) > 0): ?>
