@@ -4,9 +4,10 @@ require_once __DIR__.'/../system/core.php';
 
 $stereotypes = [];
 $gifts = [];
+$questions = [];
 
 function adminIndexController() {
-  global $stereotypes, $gifts;
+  global $stereotypes, $gifts, $questions;
 
   $stereotypesResult = dbQuery("SELECT slug, name FROM stereotypes");
 
@@ -29,6 +30,14 @@ function adminIndexController() {
   if ($giftsResult->num_rows > 0) {
     while ($row = $giftsResult->fetch_assoc()) {
       $gifts[] = (object) $row;
+    }
+  }
+
+  $questionsResult = dbQuery("SELECT q.slug, q.label FROM questions AS q");
+
+  if ($questionsResult->num_rows > 0) {
+    while ($row = $questionsResult->fetch_assoc()) {
+      $questions[] = (object) $row;
     }
   }
 }
@@ -137,6 +146,47 @@ include_once base('/templates/header.php');
                     <?php else: ?>
                       <tr>
                         <td colspan="7" class="center-align"><span>&laquo; No hay regalos todavía. &raquo;</span></td>
+                      </tr>
+                    <?php endif; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-card card">
+          <div class="card-content">
+            <span class="card-title">Preguntas</span>
+            <a href="<?php echo url('/admin/question/create.php'); ?>" class="btn-large btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <div class="row">
+              <div class="col s12">
+                <table class="striped responsive-table shopping-cart-table">
+                  <thead>
+                    <tr>
+                      <th class="left-align">ID #</th>
+                      <th class="left-align">Pregunta</th>
+                      <th class="right-align">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php if (count($questions) > 0): ?>
+                      <?php foreach ($questions as $question): ?>
+                        <tr>
+                          <td class="left-align"><?php echo strLimit($question->slug, 7); ?></td>
+                          <td class="left-align"><?php echo $question->label; ?></td>
+                          <td class="right-align">
+                            <a href="question/edit.php?slug=<?php echo $question->slug; ?>" class="btn blue darken-1 waves-effect waves-light white-text"><i class="material-icons">edit</i></a>
+                            <form action="question/delete.php" method="POST" class="inline-block">
+                              <input type="hidden" name="_method" value="DELETE">
+                              <input type="hidden" name="slug" value="<?php echo $question->slug; ?>">
+                              <button type="submit" class="app-confirm-operation btn red darken-1 waves-effect waves-light"><i class="material-icons">delete</i></button>
+                            </form>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php else: ?>
+                      <tr>
+                        <td colspan="3" class="center-align"><span>&laquo; No hay preguntas todavía. &raquo;</span></td>
                       </tr>
                     <?php endif; ?>
                   </tbody>
