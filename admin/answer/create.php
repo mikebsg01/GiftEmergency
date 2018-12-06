@@ -4,6 +4,7 @@ require_once __DIR__.'/../../system/core.php';
 
 $question_slug = null;
 $old_answer_data = null;
+$stereotypes = [];
 
 function answerValidation($data) {
   $errors = 0;
@@ -11,25 +12,28 @@ function answerValidation($data) {
   # Label validation:
   if (empty($data['content'])) {
     ++$errors;
-    makeError('content', 'El campo pregunta es requerido.');
+    makeError('content', 'El campo respuesta es requerido.');
   } else if (strlen($data['content']) > 240) {
     ++$errors;
-    makeError('content', 'La pregunta no debe ser mayor a 240 caracteres.');
+    makeError('content', 'La respuesta no debe ser mayor a 240 caracteres.');
   } else {
-    $result = dbQuery("SELECT count(*) as `counter` FROM `answers` WHERE `answers`.`label` = '{$data['content']}'");
+    $result = dbQuery("SELECT count(*) as `counter` FROM `answers` WHERE `answers`.`content` = '{$data['content']}'");
 
     if (getCounter($result) > 0) {
       ++$errors;
 
-      makeError('content', 'La pregunta ingresada ya existe.');
+      makeError('content', 'La respuesta ingresada ya existe.');
     }
   }
+
+  App::print($data['stereotypes'], $errors);
+  return;
 
   return ! $errors;
 }
 
 function adminCreateAnswerController() {
-  global $old_answer_data, $question_slug;
+  global $old_answer_data, $question_slug, $stereotypes;
 
   if (empty($_GET['question_slug'])) {
     header('Location: ../index.php');
@@ -46,9 +50,18 @@ function adminCreateAnswerController() {
     return;
   }
 
+  $stereotypesResult = dbQuery("SELECT slug, name FROM stereotypes");
+
+  if ($stereotypesResult->num_rows > 0) {
+    while ($row = $stereotypesResult->fetch_assoc()) {
+      $stereotypes[] = (object) $row;
+    }
+  }
+
   if (!empty($_POST['answer'])) {
     $answer_data = filterData($_POST['answer'], [
-      'content'
+      'content',
+      'stereotypes'
     ]);
 
     $old_answer_data = $answer_data;
