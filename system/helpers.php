@@ -28,6 +28,12 @@ if (! function_exists('cucfirst')) {
   }
 }
 
+if (! function_exists('chash')) {
+  function chash(string $str) {
+    return hash('sha1', $str . time());
+  }
+}
+
 if (! function_exists('capitalize')) {
   function capitalize($str) {
     return cucfirst(cstrtolower($str));
@@ -72,6 +78,14 @@ if (! function_exists('base')) {
   }
 }
 
+if (! function_exists('situate')) {
+  function situate(string $uri = '') {
+    $base = realpath(dirname(dirname(__FILE__)));
+    $uri = startsWith($uri, DIRECTORY_SEPARATOR) ? substr($uri, 1) : $uri;
+    return "$base/$uri";
+  }
+}
+
 if (! function_exists('filterData')) {
   function filterData(array $data, $filter) {
     if (is_array($filter)) {
@@ -103,9 +117,14 @@ if (! function_exists('dbConnection')) {
 }
 
 if (! function_exists('dbQuery')) {
-  function dbQuery(string $query) {
+  function dbQuery(string $query, bool $getLastId = false) {
     $conn   = dbConnection();
     $result = $conn->query($query . ';');
+
+    if ($getLastId) {
+      $result = ($result ? $conn->insert_id : null);
+    }
+
     $conn->close();
 
     return $result;

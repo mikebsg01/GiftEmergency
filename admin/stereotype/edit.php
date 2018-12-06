@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/../../system/core.php';
 
+$slug = null;
 $old_stereotype_data = null;
 
 function stereotypeValidation($data) {
@@ -27,8 +28,23 @@ function stereotypeValidation($data) {
   return ! $errors;
 }
 
-function adminCreateStereotypeController() {
-  global $old_stereotype_data;
+function adminEditStereotypeController() {
+  global $old_stereotype_data, $slug;
+
+  if (empty($_GET['slug'])) {
+    header('Location: ../index.php');
+    return;
+  }
+  
+  $slug = $_GET['slug'];
+  $stereotypeResult = dbQuery("SELECT name FROM `stereotypes` WHERE `stereotypes`.`slug` = '{$slug}'");
+
+  if ($stereotypeResult->num_rows == 0) {
+    header('Location: ../index.php');
+    return;
+  }
+    
+  $old_stereotype_data = $stereotypeResult->fetch_assoc();
 
   if (!empty($_POST['stereotype'])) {
     $stereotype_data = filterData($_POST['stereotype'], [
@@ -38,13 +54,11 @@ function adminCreateStereotypeController() {
     $old_stereotype_data = $stereotype_data;
 
     if (stereotypeValidation($stereotype_data)) {
-      $stereotype_data['slug'] = chash($stereotype_data['name']);
-
-      $stereotype_saved = dbQuery("INSERT INTO `stereotypes` (`slug`, `name`) 
-                                   VALUES ('{$stereotype_data['slug']}', '{$stereotype_data['name']}')");
+      $stereotype_saved = dbQuery("UPDATE `stereotypes` SET `stereotypes`.`name` = '{$stereotype_data['name']}'
+                                   WHERE `stereotypes`.`slug` = '{$slug}'");
 
       if ($stereotype_saved) {
-        makeFlash('ALERT_SUCCESS', 'El estereotipo se ha creado exitosamente!');
+        makeFlash('ALERT_SUCCESS', 'El estereotipo ha sido editado exitosamente!');
         header('Location: ../index.php');
         return;
       } else {
@@ -54,12 +68,12 @@ function adminCreateStereotypeController() {
   }
 }
 
-adminCreateStereotypeController();
+adminEditStereotypeController();
 
 include_once base('/templates/head.php');
 include_once base('/templates/header.php'); 
 ?>
-<div class="page-admin-stereotype-create row">
+<div class="page-admin-stereotype-edit row">
   <?php if (existsFlash('ALERT_INFO')): ?>
     <div class="card-panel orange darken-1 alert-info">
       <span class="white-text"><?php echo getFlash('ALERT_INFO'); ?></span>
@@ -70,11 +84,11 @@ include_once base('/templates/header.php');
     <div class="container">
       <div class="row">
         <div class="col s6 offset-s3">
-          <div class="stereotype-create-card card">
+          <div class="stereotype-edit-card card">
             <div class="card-content">
               <div class="row">
                 <div class="col s12">
-                  <span class="card-title">Crear Estereotipo</span>
+                  <span class="card-title">Editar Estereotipo</span>
                 </div>
                 <div class="col s12">
                   <?php include '_form.php'; ?>

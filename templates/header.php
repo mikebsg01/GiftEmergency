@@ -25,7 +25,13 @@ headerController();
 <div class="navbar-fixed">
   <nav class="app-nav">
     <div class="nav-wrapper">
-      <a href="<?php echo ((! isAdmin()) ? url('index.php') : url('admin/index.php')); ?>" title="Ir al Inicio" class="brand-logo"><img src="<?php echo url('assets/img/logo-navbar-gift.svg'); ?>"><span>GiftEmergency</span></a>
+      <a href="<?php echo ((! isAdmin()) ? url('index.php') : url('admin/index.php')); ?>" title="Ir al Inicio" class="brand-logo">
+        <img src="<?php echo url('assets/img/logo-navbar-gift.svg'); ?>">
+        <span>GiftEmergency</span>
+        <?php if (isAdmin()): ?>
+          <span class="admin-badge badge new amber" data-badge-caption="Admin"></span>
+        <?php endif; ?>
+      </a>
       <ul class="right hide-on-med-and-down">
         <?php if ($is_loggued): ?>
           <li class="<?php echo ($current_action == 'shopping_cart' ? 'active' : '') ?>">

@@ -204,10 +204,23 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- ***** INITIAL VALUES *****
 
 -- Seeding "User Photo" by default:
-INSERT INTO `db_giftemergency`.`images` (`file_path`, `file_name`, `file_extension`)
-		VALUES ('/public/users/img_profile', 'img_default', 'png');
+INSERT INTO `db_giftemergency`.`images` (`id`, `file_path`, `file_name`, `file_extension`)
+		VALUES (1, '/public/users/img_profile', 'img_default', 'png'),
+           (2, '/public/gifts/img', 'img_default', 'png');
 
 -- Seeding "Admin Users":
 INSERT INTO `db_giftemergency`.`users` 
 	(`is_admin`,`first_name`, `last_name`, `full_name`, `photo_id`, `phone_number`, `email`, `password`)
     VALUES (1, 'Michael Brandon', 'Serrato Guerrero', 'Michael Brandon Serrato Guerrero', 1, '4422332139', 'mikebsg01@gmail.com', SHA2('hola1234', 256));
+
+-- Seeding "Stereotypes":
+INSERT INTO `stereotypes` VALUES (1,'3f411130eb77f5e46e09fb9927742aa8240bb16c','Fresa','2018-12-05 21:00:27','2018-12-05 21:00:27'),
+                                 (2,'0b3216323c6b9fe84b9feda8c9ed2eb16f4cbf4d','Geek','2018-12-05 21:00:34','2018-12-05 21:00:34'),
+                                 (3,'7a53a003b97b2ab7344ca3ba25b6739e51121f7f','Otaku','2018-12-05 21:05:44','2018-12-05 21:05:44'),
+                                 (4,'00961f174ff7249fd5bb0ddad65a4f732caa8822','Godín','2018-12-05 21:05:55','2018-12-05 21:05:55'),
+                                 (5,'707471d4ae78a835237a4ef5b8a11ce3b13896aa','Metalero','2018-12-05 21:06:02','2018-12-05 21:06:02'),
+                                 (6,'65c3ae5c471648e4eae50a2d7e872e0c9ada1d7c','Popero','2018-12-05 21:06:10','2018-12-05 21:06:10'),
+                                 (7,'aef2271fea11635894e933cc5c0ce0a0751e9b6a','Hipster','2018-12-05 21:06:19','2018-12-05 21:06:19'),
+                                 (8,'9468a49ac9d02099c0c9e2ae2e0c4286ceff18fb','Hippie','2018-12-05 21:06:52','2018-12-05 21:06:52'),
+                                 (9,'cd2a0cdd990ef151c5991060126cba1d7d60a152','Deportista','2018-12-05 21:09:28','2018-12-05 21:09:28'),
+                                 (10,'b68c9a4ec5e6a923b83dab68ad50227e24256fa4','Buchón','2018-12-05 21:09:35','2018-12-05 21:09:35');
